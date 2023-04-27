@@ -1,15 +1,21 @@
-import 'package:adv_basics/answer_button.dart';
 import 'package:flutter/material.dart';
-import 'package:adv_basics/data/questions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:adv_basics/answer_button.dart';
+import 'package:adv_basics/data/questions.dart';
+
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key, required this.onSelectAnswer});
+  const QuestionsScreen({
+    super.key,
+    required this.onSelectAnswer,
+  });
 
   final void Function(String answer) onSelectAnswer;
 
   @override
-  State<QuestionsScreen> createState() => _QuestionsScreenState();
+  State<QuestionsScreen> createState() {
+    return _QuestionsScreenState();
+  }
 }
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
@@ -20,12 +26,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     // currentQuestionIndex = currentQuestionIndex + 1;
     // currentQuestionIndex += 1;
     setState(() {
-      currentQuestionIndex++;
+      currentQuestionIndex++; // increments the value by 1
     });
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     final currentQuestion = questions[currentQuestionIndex];
 
     return SizedBox(
@@ -46,16 +52,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
-            ...currentQuestion.getShuffledAnswers().map(
-              (answer) {
-                return AnswerButton(
-                  answerText: answer,
-                  onTap: () {
-                    answerQuestion(answer);
-                  },
-                );
-              },
-            ),
+            ...currentQuestion.getShuffledAnswers().map((answer) {
+              return AnswerButton(
+                answerText: answer,
+                onTap: () {
+                  answerQuestion(answer);
+                },
+              );
+            })
           ],
         ),
       ),
